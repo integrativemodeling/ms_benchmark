@@ -1,18 +1,10 @@
 #!/usr/bin/python
 
 # code to implement the xlinking scoring for the proteasome module 1 (Rpn3/Rpn7/SEM1)
-#import wx
 
 import re
 import os
-#import os, numarray
-import operator
-from operator import itemgetter
-#from numpy  import *
-#from Numeric import *
-from math import *
-from Numeric import *  # imports numerical python
-import csv
+from math import sqrt, pow
 
 #NAstrs=raw_input("enter the first number of structures: ")
 #NBstrs=raw_input("enter the last number of structures: ")
@@ -33,7 +25,6 @@ list7 = []
 listNames = []
 # Read input file
 for i in range(NA, NB):
-    # InputFileName="module1_20k_15Dec."+str(i)+".mfj"
     InputFileName = "output/mfj/configuration." + str(i) + ".mfj"
     if not os.path.exists(InputFileName):
         continue
@@ -60,23 +51,20 @@ for i in range(NA, NB):
             outY.append(Y0)
             outZ.append(Z0)
             outR.append(R0)
-            # print Scr2
         return outX, outY, outZ, outR
     b = coordinates(ReadFile(InputFileName))
-    # print b[0][0]
-    # coordinates(ReadFile(InputFileName))
     # we dont care for the internal connections as those are fixed through distance restraints
     # As are Rpn3, Bs Rpn7 and Cs Sem1
     # distances between the cross linked residues nas6 (210) and rpt1 (220) - in models from IMP where structures
     # are coarse grained to residue level are identified as 208 and 493 (in
     # python: 207 and 492 tespectuively)
 
-    def getDistancesAs(lines, linkA, linkB):
+    def getDistancesAs(linkA, linkB):
         DA1 = sqrt(pow(b[0][linkA] - b[0][linkB], 2) +
                    pow(b[1][linkA] - b[1][linkB], 2) + pow(b[2][linkA] - b[2][linkB], 2))
         return DA1
 
-    def getDiffs(lines, linkA, linkB, RA, RB):
+    def getDiffs(linkA, linkB, RA, RB):
         Diff1 = (sqrt(pow(b[0][linkA] - b[0][linkB], 2) + pow(b[1][linkA] - b[1][linkB], 2)
                  + pow(b[2][linkA] - b[2][linkB], 2))) - (b[3][RA] + b[3][RB]) * 1.15
         return Diff1
@@ -91,7 +79,7 @@ for i in range(NA, NB):
     # 5- 9 / A2-D1 (>100)
     # 9-8 / D1-C1 (>100)
 
-    def getScoreInteractions(lines1, cLink):
+    def getScoreInteractions(cLink):
         if cLink < 0:
             score1 = 0.0
         else:
@@ -99,7 +87,7 @@ for i in range(NA, NB):
         Score_Inter = score1
         return Score_Inter
 
-    def getScoreNonInteractions(lines2, cLink):
+    def getScoreNonInteractions(cLink):
         if cLink > 0.0:
             score2 = 0.0
         else:
@@ -108,118 +96,38 @@ for i in range(NA, NB):
         return Score_nonInter
 
     listNames.append(InputFileName)
-    #LinkA1 = raw_input("enter position of A1 Lys: ")
-    #LinkA2 = raw_input("enter position of A2 Lys: ")
-    #LinkB1 = raw_input("enter position of B1 Lys: ")
-    #LinkB2 = raw_input("enter position of B2 Lys: ")
-# LinkC1 = raw_input("enter position of C1 Lys: ")
-# LinkC2 = raw_input("enter position of C2 Lys: ")
-    #weighA = raw_input("enter weighing factor for 1st Xlink: ")
-    #weighB = raw_input("enter weighing factor for 2nd Xlink: ")
-# wC = raw_input("enter weighing factor for 3rd Xlink: ")
-
-    #posA1 = int(LinkA1)
-    #posA2 = int(LinkA2)
-    #posB1 = int(LinkB1)
-    #posB2 = int(LinkB2)
-# posC1 = str(LinkC1)
-# posC2 = str(LinkC2)
-    #wA = float(weighA)
-    #wB = float(weighB)
     outCA = []
     for i in range(0, 4):
         for j in range(0, 4):
             if i < j:
-                cA = getDistancesAs(ReadFile(InputFileName), i, j)
+                cA = getDistancesAs(i, j)
                 outCA.append(cA)
-    print outCA
+    #print outCA
 
     outDiff = []
     for i in range(0, 4):
         for j in range(0, 4):
             if i < j:
-                Diff = getDiffs(ReadFile(InputFileName), i, j, i, j)
+                Diff = getDiffs(i, j, i, j)
                 outDiff.append(Diff)
-    print outDiff
+    #print outDiff
 
-#       cA = getDistancesAs(ReadFile(InputFileName), posA1, posA2)
-#       cB = getDistancesAs(ReadFile(InputFileName), posB1, posB2)
-#       cC = getDistancesAs(ReadFile(InputFileName), posC1, posC2)
-#       cD = getDistancesAs(ReadFile(InputFileName), posD1, posD2)
-#       cE = getDistancesAs(ReadFile(InputFileName), posE1, posE2)
-#       cF = getDistancesAs(ReadFile(InputFileName), posF1, posF2)
-#       cG = getDistancesAs(ReadFile(InputFileName), posG1, posG2)
-#       cH = getDistancesAs(ReadFile(InputFileName), posH1, posH2)
-#       cI = getDistancesAs(ReadFile(InputFileName), posI1, posI2)
-#       cK = getDistancesAs(ReadFile(InputFileName), posK1, posK2)
-#       cL = getDistancesAs(ReadFile(InputFileName), posL1, posL2)
-   # print cA#, cB#, cC
-     # print c
-    #listOv = []
     list1 = [0, 1, 4]
     ScoreI = []
     for i in list1:
-        SA = getScoreInteractions(list1, outDiff[i])
+        SA = getScoreInteractions(outDiff[i])
         ScoreI.append(SA)
         SCI = sum(ScoreI)
-    print SCI
+    #print SCI
 
-#       SB= getScoreXlinks(ReadFile(InputFileName), cB, wB)
-#       SC= getScoreXlinks(ReadFile(InputFileName), cC, wC)
-#       SD= getScoreXlinks(ReadFile(InputFileName), cD, wD)
-#       SE= getScoreXlinks(ReadFile(InputFileName), cE, wE)
-#       SF= getScoreXlinks(ReadFile(InputFileName), cF, wF)
-#       SG= getScoreXlinks(ReadFile(InputFileName), cG, wG)
-#       SH= getScoreXlinks(ReadFile(InputFileName), cH, wH)
-#       SI= getScoreXlinks(ReadFile(InputFileName), cI, wI)
-#       SK= getScoreXlinks(ReadFile(InputFileName), cK, wK)
-#       SL= getScoreXlinks(ReadFile(InputFileName), cL, wL)
     STot = SCI  # +SCNI
-#+SD+SE+SF
-#+SG+SH+SI+SK+SL
-    # print SF
-#       print STot
-    # print SO
-
-#       eSA = str(SA)
-#       eSB = str(SB)
-#       eSC = str(SC)
-#       eSD = str(SD)
-#       eSE = str(SE)
-#       eSF= str(SF)
-#       eSG = str(SG)
     ecA = str(outCA)
     eDiff = str(outDiff)
     eSTot = str(STot)
-#       list0.append(eS)
-#       list1.append(ecA)
-#       list2.append(eDiff)
-    # list3.append(eSC)
-    # list4.append(eSD)
-    # list5.append(eSE)
-    # list6.append(eSF)
-    # list7.append(eSG)
     list0.append(eSTot)
 
     SummaryFileName = 'output/score-connect.txt'
 
     SummaryFile = open(SummaryFileName, 'w')
     SummaryFile.write(" " .join(listNames) + '\n')
-#       SummaryFile.write(str(list0) +'\n')
-#       SummaryFile.write(str(list1) +'\n')
-#       SummaryFile.write(str(list2) +'\n')
-    #SummaryFile.write(str(list3) +'\n')
-    #SummaryFile.write(str(list4) +'\n')
-    #SummaryFile.write(str(list5) +'\n')
-    #SummaryFile.write(str(list6) +'\n')
-    #SummaryFile.write(str(list7) +'\n')
     SummaryFile.write(" ".join(list0) + '\n')
-
-
-    #SummaryFile.write(str(listOv4) +'\n')
-    #SummaryFile.write(str(listOv5) +'\n')
-    #SummaryFile.write(str(listOv6) +'\n')
-
-
-SummaryFile.flush()
-SummaryFile.close()
