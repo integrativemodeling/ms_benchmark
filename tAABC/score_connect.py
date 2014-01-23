@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
-# code to implement the xlinking scoring for the proteasome module 1 (Rpn3/Rpn7/SEM1)
+# code to implement the xlinking scoring for the proteasome module 1
+# (Rpn3/Rpn7/SEM1)
 
 import re
 import os
@@ -97,7 +98,7 @@ for i in range(NA, NB):
             if i < j:
                 Diff = getDiffs(i, j, i, j)
                 outDiff.append(Diff)
-    #print outDiff
+    # print outDiff
 
     list1 = [0, 1, 4]
     ScoreI = []
