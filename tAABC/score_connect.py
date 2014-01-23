@@ -104,16 +104,13 @@ for i in range(NA, NB):
     for i in list1:
         SA = getScoreInteractions(outDiff[i])
         ScoreI.append(SA)
-        SCI = sum(ScoreI)
-    #print SCI
+    SCI = sum(ScoreI)
 
     STot = SCI  # +SCNI
-    eDiff = str(outDiff)
-    eSTot = str(STot)
-    list0.append(eSTot)
+    list0.append(str(STot))
 
-    SummaryFileName = 'output/score-connect.txt'
+SummaryFileName = 'output/score-connect.txt'
 
-    SummaryFile = open(SummaryFileName, 'w')
-    SummaryFile.write(" " .join(listNames) + '\n')
-    SummaryFile.write(" ".join(list0) + '\n')
+SummaryFile = open(SummaryFileName, 'w')
+SummaryFile.write(" " .join(listNames) + '\n')
+SummaryFile.write(" ".join(list0) + '\n')
