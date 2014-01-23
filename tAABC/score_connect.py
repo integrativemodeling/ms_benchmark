@@ -59,11 +59,6 @@ for i in range(NA, NB):
     # are coarse grained to residue level are identified as 208 and 493 (in
     # python: 207 and 492 tespectuively)
 
-    def getDistancesAs(linkA, linkB):
-        DA1 = sqrt(pow(b[0][linkA] - b[0][linkB], 2) +
-                   pow(b[1][linkA] - b[1][linkB], 2) + pow(b[2][linkA] - b[2][linkB], 2))
-        return DA1
-
     def getDiffs(linkA, linkB, RA, RB):
         Diff1 = (sqrt(pow(b[0][linkA] - b[0][linkB], 2) + pow(b[1][linkA] - b[1][linkB], 2)
                  + pow(b[2][linkA] - b[2][linkB], 2))) - (b[3][RA] + b[3][RB]) * 1.15
@@ -96,14 +91,6 @@ for i in range(NA, NB):
         return Score_nonInter
 
     listNames.append(InputFileName)
-    outCA = []
-    for i in range(0, 4):
-        for j in range(0, 4):
-            if i < j:
-                cA = getDistancesAs(i, j)
-                outCA.append(cA)
-    #print outCA
-
     outDiff = []
     for i in range(0, 4):
         for j in range(0, 4):
@@ -121,7 +108,6 @@ for i in range(NA, NB):
     #print SCI
 
     STot = SCI  # +SCNI
-    ecA = str(outCA)
     eDiff = str(outDiff)
     eSTot = str(STot)
     list0.append(eSTot)
