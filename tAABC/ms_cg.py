@@ -193,7 +193,7 @@ for i in range(0, cs.get_number_of_configurations()):
     ListScores.append(m.evaluate(False))
     print ListScores
 
-f1 = open("output/scores.csv", "w")
+f1 = open("output/scores.txt", "w")
 f1.write("\n".join(map(lambda x: str(x), ListScores)))
 f1.close()
 
