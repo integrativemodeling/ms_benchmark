@@ -15,6 +15,11 @@ class Tests(unittest.TestCase):
         os.chdir(os.path.join(os.path.dirname(sys.argv[0]), '..', 'tABCD'))
         self.run_scripts(min_models=9900, min_perfect=2500)
 
+    def test_abcde(self):
+        """Test ABCDE example"""
+        os.chdir(os.path.join(os.path.dirname(sys.argv[0]), '..', 'tABCDE'))
+        self.run_scripts(min_models=9900, min_perfect=2500)
+
     def test_aabbc(self):
         """Test AABBC example"""
         os.chdir(os.path.join(os.path.dirname(sys.argv[0]), '..', 'tAABBC'))
