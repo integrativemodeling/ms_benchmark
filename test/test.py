@@ -48,7 +48,7 @@ class Tests(unittest.TestCase):
         # Make sure models and clusters were produced
         num = len(glob.glob('output/models/configuration.*.pym'))
         self.assert_(num > min_models, "Only %d models were produced" % num)
-        self.assert_(len(glob.glob('output/models/cluster.*.pym'), 10)
+        self.assert_(len(glob.glob('output/models/cluster.*.pym')), 10)
         # Make mfj files
         p = subprocess.check_call(['./pym2tcl.py'])
         p = subprocess.check_call(['./tcl2mfj.py'])
