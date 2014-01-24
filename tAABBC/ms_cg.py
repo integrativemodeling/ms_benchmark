@@ -64,7 +64,7 @@ def create_restraints(m, all):
         score = IMP.core.KClosePairsPairScore(
             IMP.core.HarmonicSphereDistancePairScore(0, 1),
             tr)
-        r = IMP.core.MSConnectivityRestraint(score)
+        r = IMP.core.MSConnectivityRestraint(m, score)
         iA = r.add_type([rps[0], rps[1]])
         iB = r.add_type([rps[2], rps[3]])
         iC = r.add_type([rps[4]])
