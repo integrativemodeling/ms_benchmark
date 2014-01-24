@@ -18,7 +18,12 @@ class Tests(unittest.TestCase):
     def test_aabbc(self):
         """Test AABBC example"""
         os.chdir(os.path.join(os.path.dirname(sys.argv[0]), '..', 'tAABBC'))
-        self.run_scripts(min_models=9900, min_perfect=2500)
+
+    def test_11mer(self):
+        """Test 11mer example"""
+        os.chdir(os.path.join(os.path.dirname(sys.argv[0]), '..', 't-11mer'))
+        self.run_scripts(min_models=4900, min_perfect=1000)
+        self.run_scripts(min_models=4900, min_perfect=1000)
 
     def run_scripts(self, min_models, min_perfect):
         # Test modeling script

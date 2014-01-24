@@ -60,7 +60,7 @@ for i in range(NA, NB):
     # are coarse grained to residue level are identified as 208 and 493 (in
     # python: 207 and 492 tespectuively)
 
-    def getDiffs(lines, linkA, linkB, RA, RB):
+    def getDiffs(linkA, linkB, RA, RB):
         Diff1 = (
             sqrt(pow(b[0][linkA] - b[0][linkB],
                      2) + pow(b[1][linkA] - b[1][linkB],

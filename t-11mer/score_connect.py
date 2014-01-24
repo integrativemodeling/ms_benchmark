@@ -8,11 +8,14 @@ from math import sqrt, pow
 
 #NAstrs = raw_input("enter the first number of structures: ")
 #NBstrs = raw_input("enter the last number of structures: ")
-# NA = int(NAstrs)
-# NB = int(NBstrs)
-NA = 0
-NB = 10000
+#Ns = raw_input("enetr number of subunits: ")
 
+#NA = int(NAstrs)
+#NB = int(NBstrs)
+#Nsub = int(Ns)
+NA = 0
+NB = 5000
+Nsub = 11
 
 list0 = []
 list1 = []
@@ -95,14 +98,14 @@ for i in range(NA, NB):
 
     listNames.append(InputFileName)
     outDiff = []
-    for i in range(0, 5):
-        for j in range(0, 5):
+    for i in range(0, Nsub):
+        for j in range(0, Nsub):
             if i < j:
                 Diff = getDiffs(i, j, i, j)
                 outDiff.append(Diff)
-    # print outDiff
+    #print outDiff
 
-    list1 = [0, 2, 4, 7, 8, 9]
+    list1 = [1, 2, 5, 10, 11, 19, 27, 28, 34, 41, 49, 52, 53]
     ScoreI = []
     for i in list1:
         SA = getScoreInteractions(outDiff[i])
@@ -110,7 +113,9 @@ for i in range(NA, NB):
     SCI = sum(ScoreI)
     print SCI
 
-    list2 = [1, 3, 5, 6]
+    list2 = [3, 4, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 22, 24,
+             25, 26, 29, 30, 31, 32, 33, 35, 36, 37, 28, 29, 40, 42, 43, 44,
+             45, 46, 47, 48, 50, 51, 54]
     ScoreNI = []
     for i in list2:
         SB = getScoreNonInteractions(outDiff[i])
@@ -119,7 +124,6 @@ for i in range(NA, NB):
     print SCNI
 
     STot = SCI + SCNI
-
     list0.append(str(STot))
 
 SummaryFileName = 'output/score-connect.txt'
