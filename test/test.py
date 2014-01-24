@@ -2,44 +2,46 @@
 
 import unittest
 import os
+import sys
+import subprocess
 import glob
+
+TOPDIR = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 
 class Tests(unittest.TestCase):
     def test_aabc(self):
         """Test AABC example"""
-        os.chdir(os.path.join(os.path.dirname(sys.argv[0]), '..', 'tAABC'))
+        os.chdir(os.path.join(TOPDIR, 'tAABC'))
         self.run_scripts(min_models=9900, min_perfect=2500)
 
     def test_abcd(self):
         """Test ABCD example"""
-        os.chdir(os.path.join(os.path.dirname(sys.argv[0]), '..', 'tABCD'))
+        os.chdir(os.path.join(TOPDIR, 'tABCD'))
         self.run_scripts(min_models=9900, min_perfect=2500)
 
     def test_abcde(self):
         """Test ABCDE example"""
-        os.chdir(os.path.join(os.path.dirname(sys.argv[0]), '..', 'tABCDE'))
+        os.chdir(os.path.join(TOPDIR, 'tABCDE'))
         self.run_scripts(min_models=9900, min_perfect=2500)
 
     def test_aabbc(self):
         """Test AABBC example"""
-        os.chdir(os.path.join(os.path.dirname(sys.argv[0]), '..', 'tAABBC'))
+        os.chdir(os.path.join(TOPDIR, 'tAABBC'))
+        self.run_scripts(min_models=9900, min_perfect=2500)
 
     def test_11mer(self):
         """Test 11mer example"""
-        os.chdir(os.path.join(os.path.dirname(sys.argv[0]), '..', 't-11mer'))
-        self.run_scripts(min_models=4900, min_perfect=1000)
+        os.chdir(os.path.join(TOPDIR, 't-11mer'))
         self.run_scripts(min_models=4900, min_perfect=1000)
 
     def test_clamp_7mer(self):
         """Test clamp loader 7mer example"""
-        os.chdir(os.path.join(os.path.dirname(sys.argv[0]), '..',
-                              'clamp-loader', 'clamp-loader-7mer'))
+        os.chdir(os.path.join(TOPDIR, 'clamp-loader', 'clamp-loader-7mer'))
         self.run_scripts(min_models=9900, min_perfect=2500)
 
     def test_clamp_5mer(self):
         """Test clamp loader 5mer example"""
-        os.chdir(os.path.join(os.path.dirname(sys.argv[0]), '..',
-                              'clamp-loader', 'clamp-loader-5mer'))
+        os.chdir(os.path.join(TOPDIR, 'clamp-loader', 'clamp-loader-5mer'))
         self.run_scripts(min_models=9900, min_perfect=2500)
 
     def run_scripts(self, min_models, min_perfect):
