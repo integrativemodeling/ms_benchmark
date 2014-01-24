@@ -31,6 +31,12 @@ class Tests(unittest.TestCase):
                               'clamp-loader', 'clamp-loader-7mer'))
         self.run_scripts(min_models=9900, min_perfect=2500)
 
+    def test_clamp_5mer(self):
+        """Test clamp loader 5mer example"""
+        os.chdir(os.path.join(os.path.dirname(sys.argv[0]), '..',
+                              'clamp-loader', 'clamp-loader-5mer'))
+        self.run_scripts(min_models=9900, min_perfect=2500)
+
     def run_scripts(self, min_models, min_perfect):
         # Test modeling script
         p = subprocess.check_call(['./ms_cg.py'])
