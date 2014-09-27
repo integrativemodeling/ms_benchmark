@@ -69,6 +69,6 @@ _Parallelizeable_: No
 
 _Publications_:
  - Keren Lasker, Javier A. Velazquez-Muriel, Benjamin M. Webb, Zheng Yang, Thomas E. Ferrin, Andrej Sali, [Macromolecular assembly structures by comparative modeling and electron microscopy](http://salilab.org/pdf/Lasker_MethodsMolBiol_2011.pdf), Methods in Molecular Biology, 2011.
- - Politis A#, Stengel F#, Hall Z, Hernandez H, Leitner A, Waltzhoeni T, Robinson CV, Aebersold R. A mass spectrometry-based hybrid method for structural modelling of protein complexes. Nature Methods, 11, 403-406, (2014) 
+ - Politis A, Stengel F, Hall Z, Hernandez H, Leitner A, Waltzhoeni T, Robinson CV, Aebersold R. A mass spectrometry-based hybrid method for structural modelling of protein complexes. Nature Methods, 11, 403-406, (2014) 
  - Hall Z, Politis A, Robinson CV. Structural modeling of heteromeric protein complexes from disassembly pathways and ion mobility-mass spectrometry Structure 20, 1-14, 2012.
  - Politis A, Park AY, Hall Z, Ruotolo BT, Robinson CV.Integrative modelling coupled with ion mobility mass spectrometry reveals structural features of the clamp loader in complex with single-stranded DNA binding protein Journal of Molecular Biology 425, 4790-4801, 2013.
