@@ -93,7 +93,7 @@ def create_restraints(m, all):
         # only allow the particles to separate by one angstrom
         m.set_maximum_score(r, k)
     #evr=IMP.atom.create_excluded_volume_restraint([all])
-    
+
     evr=IMP.atom.create_excluded_volume_restraint([all])
 
     #evr= IMP.core.ExcludedVolumeRestraint(all,1)
@@ -171,18 +171,18 @@ cs= get_conformations(m)
 print("found", cs.get_number_of_configurations(), "solutions")
 
 for i in range(0, cs.get_number_of_configurations()):
-	cs.load_configuration(i)
-	# print the configuration
-	print("solution number: ",i,"scored :", m.evaluate(False))
+    cs.load_configuration(i)
+    # print the configuration
+    print("solution number: ",i,"scored :", m.evaluate(False))
 
 
 ListScores = []
 for i in range(0, cs.get_number_of_configurations()):
-        cs.load_configuration(i)
-        # print the configuration
-        print("solution number: ",i,"scored :", m.evaluate(False))
-        ListScores.append(m.evaluate(False))
-        print(ListScores)
+    cs.load_configuration(i)
+    # print the configuration
+    print("solution number: ",i,"scored :", m.evaluate(False))
+    ListScores.append(m.evaluate(False))
+    print(ListScores)
 
 f1 = open("out_scores_testABCDE.csv", "w")
 f1.write("\n".join(map(lambda x: str(x), ListScores)))
@@ -198,4 +198,3 @@ for i in range(0, cs.get_number_of_configurations()):
 
 analyze_conformations(cs, all, gs)
 #print m.evaluate(False)
-
