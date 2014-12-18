@@ -1,6 +1,7 @@
 # code to implement the xlinking scoring for the proteasome module 1 (Rpn3/Rpn7/SEM1)
 #import wx
 
+from __future__ import print_function
 import re
 #import os, numarray
 import operator
@@ -124,7 +125,7 @@ for i in range(NA, NB):
                      if i < j:
 		            cA = getDistancesAs(ReadFile(InputFileName), i, j)
 		            outCA.append(cA)                     
-       print outCA 
+       print(outCA) 
 
 
        outDiff = []
@@ -133,7 +134,7 @@ for i in range(NA, NB):
                      if i < j:
                             Diff = getDiffs(ReadFile(InputFileName), i, j, i, j)
                             outDiff.append(Diff)
-       print outDiff
+       print(outDiff)
 
 				
        #listOv = []
@@ -143,7 +144,7 @@ for i in range(NA, NB):
               SA= getScoreInteractions(list1, outDiff[i])
 	      ScoreIA.append(SA)
               SAB = sum(ScoreIA)
-       print SAB	      
+       print(SAB)	      
 
        list2 = [1]
        ScoreIB = []
@@ -151,7 +152,7 @@ for i in range(NA, NB):
               SB= getScoreInteractions(list2, outDiff[i])
               ScoreIB.append(SB)
               SAC = sum(ScoreIB)
-       print SAC
+       print(SAC)
 
 
        list3 = [2]
@@ -160,7 +161,7 @@ for i in range(NA, NB):
               SC= getScoreInteractions(list3, outDiff[i])
               ScoreIC.append(SC)
               SAI = sum(ScoreIC)
-       print SAI
+       print(SAI)
 
        list4 = [3]
        ScoreID = []
@@ -168,7 +169,7 @@ for i in range(NA, NB):
               SD= getScoreInteractions(list4, outDiff[i])
               ScoreID.append(SD)
               SAG = sum(ScoreID)
-       print SAG
+       print(SAG)
 
 
 
@@ -178,7 +179,7 @@ for i in range(NA, NB):
               SE= getScoreInteractions(list5, outDiff[i])
               ScoreIE.append(SE)
               SBC = sum(ScoreIE)
-       print SBC
+       print(SBC)
 
        list6 = [5]
        ScoreIF = []
@@ -186,7 +187,7 @@ for i in range(NA, NB):
               SF= getScoreInteractions(list6, outDiff[i])
               ScoreIF.append(SF)
               SBI = sum(ScoreIF)
-       print SBI
+       print(SBI)
 
 
        list7 = [6]
@@ -195,7 +196,7 @@ for i in range(NA, NB):
               SG= getScoreInteractions(list7, outDiff[i])
               ScoreIG.append(SG)
               SBG = sum(ScoreIG)
-       print SBG
+       print(SBG)
 
        list8 = [7]
        ScoreIH = []
@@ -203,7 +204,7 @@ for i in range(NA, NB):
               SH= getScoreInteractions(list8, outDiff[i])
               ScoreIH.append(SH)
               SCI = sum(ScoreIH)
-       print SCI
+       print(SCI)
 
 
 
@@ -213,7 +214,7 @@ for i in range(NA, NB):
               SI= getScoreInteractions(list9, outDiff[i])
               ScoreII.append(SI)
               SCG = sum(ScoreII)
-       print SCG
+       print(SCG)
 
        list10 = [9]
        ScoreIJ = []
@@ -221,7 +222,7 @@ for i in range(NA, NB):
               SJ= getScoreInteractions(list10, outDiff[i])
               ScoreIJ.append(SJ)
               SIG = sum(ScoreIJ)
-       print SIG
+       print(SIG)
 
 
 

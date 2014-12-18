@@ -1,7 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 # code to implement the xlinking scoring for the proteasome module 1 (Rpn3/Rpn7/SEM1)
 
+from __future__ import print_function
 import re
 import os
 from math import sqrt, pow
@@ -111,7 +112,7 @@ for i in range(NA, NB):
         SA = getScoreInteractions(outDiff[i])
         ScoreI.append(SA)
     SCI = sum(ScoreI)
-    print SCI
+    print(SCI)
 
     list2 = [3, 4, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 22, 24,
              25, 26, 29, 30, 31, 32, 33, 35, 36, 37, 28, 29, 40, 42, 43, 44,
@@ -121,7 +122,7 @@ for i in range(NA, NB):
         SB = getScoreNonInteractions(outDiff[i])
         ScoreNI.append(SB)
     SCNI = sum(ScoreNI)
-    print SCNI
+    print(SCNI)
 
     STot = SCI + SCNI
     list0.append(str(STot))

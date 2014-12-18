@@ -1,3 +1,4 @@
+from __future__ import print_function
 import IMP
 import IMP.atom
 import IMP.container
@@ -167,21 +168,21 @@ cs= get_conformations(m)
 #print cs
 
 # Report solutions
-print "found", cs.get_number_of_configurations(), "solutions"
+print("found", cs.get_number_of_configurations(), "solutions")
 
 for i in range(0, cs.get_number_of_configurations()):
 	cs.load_configuration(i)
 	# print the configuration
-	print "solution number: ",i,"scored :", m.evaluate(False)
+	print("solution number: ",i,"scored :", m.evaluate(False))
 
 
 ListScores = []
 for i in range(0, cs.get_number_of_configurations()):
         cs.load_configuration(i)
         # print the configuration
-        print "solution number: ",i,"scored :", m.evaluate(False)
+        print("solution number: ",i,"scored :", m.evaluate(False))
         ListScores.append(m.evaluate(False))
-        print ListScores
+        print(ListScores)
 
 f1 = open("out_scores_testABCDE.csv", "w")
 f1.write("\n".join(map(lambda x: str(x), ListScores)))
