@@ -1,3 +1,6 @@
 title: Mass Spec Benchmark
 tags: [native mass spec, benchmark]
 pmid: 25544043
+test:
+    runtime: 24h
+    build: fast
