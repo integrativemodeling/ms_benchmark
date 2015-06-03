@@ -43,7 +43,7 @@ def create_representation():
         if r:
             m.add_restraint(r)
             # only allow the particles to penetrate or separate by 1 angstrom
-            m.set_maximum_score(r, k)
+            r.set_maximum_score(k)
     create_protein("ProteinA1", 100)
     create_protein("ProteinA2", 100)
     create_protein("ProteinB", 150)
@@ -93,13 +93,13 @@ def create_restraints(m, all):
 #        n9 = r.add_composite([iA, iA, iC], n8)
 #        n10 = r.add_composite([iA, iC], n9)
         m.add_restraint(r)
-        m.set_maximum_score(r, 4 * k)
+        r.set_maximum_score(4 * k)
 
     def add_distance_restraint(s0, s1):
         r = IMP.atom.create_distance_restraint(s0, s1, 0, k)
         m.add_restraint(r)
         # only allow the particles to separate by one angstrom
-        m.set_maximum_score(r, 4 * k)
+        r.set_maximum_score(4 * k)
     # evr=IMP.atom.create_excluded_volume_restraint([all])
 
     evr = IMP.atom.create_excluded_volume_restraint([all])
