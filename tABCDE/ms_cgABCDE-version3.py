@@ -19,6 +19,7 @@ bb=IMP.algebra.BoundingBox3D(IMP.algebra.Vector3D(0,0,0),
 # this function creates the molecular hierarchies for the various involved proteins
 def create_representation():
     m= IMP.Model()
+    rs = IMP.RestraintSet(m, "all restraints")
     all=IMP.atom.Hierarchy.setup_particle(IMP.Particle(m))
     all.set_name("the universe")
     # create a protein, represented as a set of connected balls of appropriate
@@ -33,7 +34,7 @@ def create_representation():
                                                   for c in h.get_children()],
                                                  k)
         if r:
-            m.add_restraint(r)
+            rs.add_restraint(r)
             # only allow the particles to penetrate or separate by 1 angstrom
             r.set_maximum_score(k)
     create_protein("ProteinA", 100)
@@ -43,11 +44,11 @@ def create_representation():
     create_protein("ProteinE", 175)
  #   create_protein("ProteinD", 110)
  #   create_protein("ProteinE", 125)
-    return (m, all)
+    return (m, rs, all)
 
 
-# create the needed restraints and add them to the model
-def create_restraints(m, all):
+# create the needed restraints and add them to the restraint set
+def create_restraints(m, rs, all):
     def add_connectivity_restraint(s):
         tr= IMP.core.TableRefiner()
         rps=[]
@@ -85,11 +86,11 @@ def create_restraints(m, all):
 #        n6a = r.add_composite([iA, iA, iD, iE], n7)
 #        n9 = r.add_composite([iA, iA, iC], n8)
 #        n10 = r.add_composite([iA, iC], n9)
-        m.add_restraint(r)
+        rs.add_restraint(r)
         r.set_maximum_score(k)
     def add_distance_restraint(s0, s1):
         r=IMP.atom.create_distance_restraint(s0,s1, 0, k)
-        m.add_restraint(r)
+        rs.add_restraint(r)
         # only allow the particles to separate by one angstrom
         r.set_maximum_score(k)
     #evr=IMP.atom.create_excluded_volume_restraint([all])
@@ -97,7 +98,7 @@ def create_restraints(m, all):
     evr=IMP.atom.create_excluded_volume_restraint([all])
 
     #evr= IMP.core.ExcludedVolumeRestraint(all,1)
-    m.add_restraint(evr)
+    rs.add_restraint(evr)
     # a Selection allows for natural specification of what the restraints act on
     S= IMP.atom.Selection
     sA=S(hierarchy=all, molecule="ProteinA")
@@ -109,13 +110,14 @@ def create_restraints(m, all):
     add_connectivity_restraint([sA, sB, sC, sD, sE])
     #for l in IMP.atom.get_leaves(all):
     #    r= IMP.example.ExampleRestraint(l, k)
-    #    m.add_restraint(r)
+    #    rs.add_restraint(r)
     #    m.set_maximum_score(k)
-#    print m.evaluate(False)
+#    print sf.evaluate(False)
 
 # find acceptable conformations of the model
-def get_conformations(m):
+def get_conformations(m, sf):
     sampler = IMP.core.MCCGSampler(m)
+    sampler.set_scoring_function(sf)
     sampler.set_bounding_box(bb)
     # magic numbers, experiment with them and make them large enough for things to work
     sampler.set_number_of_conjugate_gradient_steps(200)
@@ -147,9 +149,10 @@ def analyze_conformations(cs, all, gs):
 
 
 # now do the actual work
-(m,all)= create_representation()
+(m,rs,all)= create_representation()
 IMP.atom.show_molecular_hierarchy(all)
-create_restraints(m, all)
+create_restraints(m, rs, all)
+sf = IMP.core.RestraintsScoringFunction([rs])
 
 
 # in order to display the results, we need something that maps the particles onto
@@ -164,7 +167,7 @@ for i in range(all.get_number_of_children()):
     g.set_color(color)
     gs.append(g)
 
-cs= get_conformations(m)
+cs= get_conformations(m, sf)
 #print cs
 
 # Report solutions
@@ -173,15 +176,15 @@ print("found", cs.get_number_of_configurations(), "solutions")
 for i in range(0, cs.get_number_of_configurations()):
     cs.load_configuration(i)
     # print the configuration
-    print("solution number: ",i,"scored :", m.evaluate(False))
+    print("solution number: ",i,"scored :", sf.evaluate(False))
 
 
 ListScores = []
 for i in range(0, cs.get_number_of_configurations()):
     cs.load_configuration(i)
     # print the configuration
-    print("solution number: ",i,"scored :", m.evaluate(False))
-    ListScores.append(m.evaluate(False))
+    print("solution number: ",i,"scored :", sf.evaluate(False))
+    ListScores.append(sf.evaluate(False))
     print(ListScores)
 
 f1 = open("out_scores_testABCDE.csv", "w")
@@ -197,4 +200,4 @@ for i in range(0, cs.get_number_of_configurations()):
 # Report solutions
 
 analyze_conformations(cs, all, gs)
-#print m.evaluate(False)
+#print sf.evaluate(False)
