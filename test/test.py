@@ -49,8 +49,8 @@ class Tests(unittest.TestCase):
         p = subprocess.check_call(['./ms_cg.py'])
         # Make sure models and clusters were produced
         num = len(glob.glob('output/models/configuration.*.pym'))
-        self.assert_(num > min_models, "Only %d models were produced" % num)
-        self.assert_(len(glob.glob('output/models/cluster.*.pym')), 10)
+        self.assertTrue(num > min_models, "Only %d models were produced" % num)
+        self.assertTrue(len(glob.glob('output/models/cluster.*.pym')), 10)
         # Make mfj files
         p = subprocess.check_call(['./pym2tcl.py'])
         p = subprocess.check_call(['./tcl2mfj.py'])
@@ -59,15 +59,15 @@ class Tests(unittest.TestCase):
         f = open('output/score-connect.txt').readlines()[1]
         val = [float(x) for x in f.rstrip('\r\n').split(' ')]
         num = len(val)
-        self.assert_(num > min_models, "Only %d models were checked" % num)
+        self.assertTrue(num > min_models, "Only %d models were checked" % num)
         num_threshold = {}
         for t in range(1, 30):
             num_threshold[t] = len([x for x in val if x < t])
-        self.assert_(num_threshold[threshold] > min_threshold,
-                     "Only %d models were below %d (%s)" % \
-                     (num_threshold[threshold], threshold,
-                      ", ".join("%d < %d" % (num_threshold[x], x) \
-                                             for x in range(1, 30))))
+        self.assertTrue(num_threshold[threshold] > min_threshold,
+                        "Only %d models were below %d (%s)" % \
+                        (num_threshold[threshold], threshold,
+                         ", ".join("%d < %d" % (num_threshold[x], x) \
+                                                for x in range(1, 30))))
 
 if __name__ == '__main__':
     unittest.main()
