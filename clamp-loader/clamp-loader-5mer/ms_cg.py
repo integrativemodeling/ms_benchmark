@@ -158,11 +158,11 @@ def get_conformations(m, sf):
 # cluster the conformations and write them to a file
 
 
-def analyze_conformations(cs, all, gs):
+def analyze_conformations(m, cs, all, gs):
     # we want to cluster the configurations to make them easier to understand
     # in the case, the clustering is pretty meaningless
     embed = IMP.statistics.ConfigurationSetXYZEmbedding(cs,
-                                                        IMP.container.ListSingletonContainer(IMP.atom.get_leaves(all)), True)
+                                                        IMP.container.ListSingletonContainer(m, IMP.atom.get_leaves(all)), True)
     cluster = IMP.statistics.create_lloyds_kmeans(embed, 10, 10000)
     # dump each cluster center to a file so it can be viewed.
     for i in range(cluster.get_number_of_clusters()):
@@ -226,5 +226,5 @@ for i in range(0, cs.get_number_of_configurations()):
         w.add_geometry(g)
 # Report solutions
 
-analyze_conformations(cs, all, gs)
+analyze_conformations(m, cs, all, gs)
 # print sf.evaluate(False)
